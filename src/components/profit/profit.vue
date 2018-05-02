@@ -1,6 +1,6 @@
 <template>
   <div style="margin-top:40px">
-    <el-row :gutter="20" class="mgb20">
+    <el-row :gutter="50" class="mgb20">
         <el-col :span="6">
             <el-card shadow="hover" :body-style="{padding: '0px'}">
                 <div class="grid-content grid-con-1">
@@ -44,6 +44,38 @@
                     </div>
                 </div>
             </el-card>
+        </el-col>
+    </el-row>
+    <el-row :gutter="100" class="mgb20">
+        <el-col :span="8">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>日收益情况</span>
+            </div>
+            <div v-for="o in 4" :key="o" class="text item">
+              {{'列表内容 ' + o }}
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>周收益情况</span>
+            </div>
+            <div v-for="o in 4" :key="o" class="text item">
+              {{'列表内容 ' + o }}
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>月收益情况</span>
+            </div>
+            <div v-for="o in 4" :key="o" class="text item">
+              {{'列表内容 ' + o }}
+            </div>
+          </el-card>
         </el-col>
     </el-row>
   </div>
@@ -139,5 +171,25 @@ export default {
     .todo-item-del {
         text-decoration: line-through;
         color: #999;
+    }
+    .text {
+      font-size: 14px;
+    }
+
+    .item {
+      margin-bottom: 18px;
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+      display: table;
+      content: "";
+    }
+    .clearfix:after {
+      clear: both
+    }
+
+    .box-card {
+      width: 480px;
     }
 </style>
