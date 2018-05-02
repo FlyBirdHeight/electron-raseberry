@@ -9,6 +9,7 @@ import router from './router'
 import axios from 'axios'
 Vue.prototype.axios = axios
 import echarts from 'echarts'
+import infographic from './assets/js/infographic'
 Vue.prototype.echarts = echarts 
 
 

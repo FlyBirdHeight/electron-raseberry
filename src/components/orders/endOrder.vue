@@ -1,38 +1,45 @@
 <template>
   <div>
         <el-table
-            :data="allOrderData"
+            :data="endOrderData"
             border
-            style="width:59.28%;margin-left:17%;">
+            v-loading="loading"
+            style="width:66.5%;margin-left:17%;">
             <el-table-column type="expand">
                 <template slot-scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
-                    <el-form-item label="商品名称">
-                        <!-- <span>{{ props.row.name }}</span> -->
+                    <el-form-item label="订单号">
+                        <span>{{ props.row.order_code }}</span>
                     </el-form-item>
-                    <el-form-item label="所属店铺">
-                        <!-- <span>{{ props.row.shop }}</span> -->
+                    <el-form-item label="订单金额">
+                        <span>{{ props.row.price }}元</span>
                     </el-form-item>
-                    <el-form-item label="商品 ID">
-                        <!-- <span>{{ props.row.id }}</span> -->
-                    </el-form-item>
-                    <el-form-item label="店铺 ID">
-                        <!-- <span>{{ props.row.shopId }}</span> -->
-                    </el-form-item>
-                    <el-form-item label="商品分类">
-                        <!-- <span>{{ props.row.category }}</span> -->
-                    </el-form-item>
-                    <el-form-item label="店铺地址">
-                        <!-- <span>{{ props.row.address }}</span> -->
-                    </el-form-item>
-                    <el-form-item label="商品描述">
-                        <!-- <span>{{ props.row.desc }}</span> -->
+                    <el-form-item label="商品列表">
+                        <el-table
+                            :data="props.row.goods"
+                            border
+                            style="margin-top:-30px;margin-left:100px;width:520px">
+                            <el-table-column
+                                prop="name"
+                                label="名称"
+                                width="180">
+                            </el-table-column>
+                            <el-table-column
+                                prop="pivot.num"
+                                label="数量"
+                                width="180">
+                            </el-table-column>
+                            <el-table-column
+                                prop="pivot.price"
+                                label="价格">
+                            </el-table-column>
+                        </el-table>
                     </el-form-item>
                     </el-form>
                 </template>
             </el-table-column>
             <el-table-column
-                prop="name"
+                prop="user.name"
                 label="下单人"
                 width="100">
             </el-table-column>
@@ -47,22 +54,24 @@
                 width="100">
             </el-table-column>
             <el-table-column
-                prop="status"
                 label="状态"
                 width="100">
+                <template slot-scope="scope">
+                    <span>{{scope.row.status==1?"已完成":(scope.row.status==0?"未支付":"未完成")}}</span>
+                </template>
             </el-table-column>
             <el-table-column
-                prop="phone"
+                prop="user.phone"
                 label="联系电话"
-                width="100">
+                width="150">
             </el-table-column>
             <el-table-column
                 prop="address"
                 label="地址"
-                width="200">
+                width="260">
             </el-table-column>
             <el-table-column
-                prop="address"
+                prop="get_type"
                 label="取货方式"
                 width="150">
             </el-table-column>
@@ -74,8 +83,32 @@
 export default {
     data () {
         return {
-            allOrderData:[]
+            endOrderData:[],
+            loading:true
         }
+    },
+    methods: {
+        getAllOrder(){
+            this.axios.get('/api/app/getDoOrder/'+this.shop[0].id).then((res) => {
+                if(res.data.status=="success"){
+                    this.endOrderData = res.data.response;
+                    console.log(this.endOrderData)
+                }else{
+                   this.endOrderData = [];
+                   console.log(res.data);
+                }
+                this.loading = false;
+            }).catch((error) => {
+                this.$notify.error({
+                    title: '错误',
+                    message: '网络问题，请确认网络是否连接'
+                });
+            })
+        }
+    },
+    mounted(){
+        this.shop = JSON.parse(sessionStorage.getItem('shopInfo'));
+        this.getAllOrder();
     }
 }
 </script>

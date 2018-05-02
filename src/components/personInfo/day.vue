@@ -64,7 +64,7 @@ export default {
         })
       },
       drawChangeChart(){
-          let changeChart = echarts.init(document.getElementById('changeChart'));
+          let changeChart = echarts.init(document.getElementById('changeChart'),'infographic');
           var option = {
                 title: {
                     text: '实时店内客流变化曲线',

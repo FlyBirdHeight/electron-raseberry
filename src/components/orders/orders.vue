@@ -25,7 +25,7 @@ import unpayOrder from './unpayOrder';
 export default {
     data () {
         return {
-            tabPosition:'left'
+            tabPosition:'left',
         }
     },
     components: {
@@ -35,7 +35,7 @@ export default {
         unpayOrder
     },
     mounted(){
-        
+
     }
 }
 </script>
