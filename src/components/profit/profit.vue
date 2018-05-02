@@ -6,7 +6,7 @@
                 <div class="grid-content grid-con-1">
                     <i class="el-icon-tickets grid-con-icon"></i>
                     <div class="grid-cont-right">
-                        <div class="grid-num">1单</div>
+                        <div class="grid-num">{{this.day.day_order_count}}单</div>
                         <div>有效订单数量</div>
                     </div>
                 </div>
@@ -17,7 +17,7 @@
                 <div class="grid-content grid-con-2">
                     <i class="el-icon-message grid-con-icon"></i>
                     <div class="grid-cont-right">
-                        <div class="grid-num">19.4元</div>
+                        <div class="grid-num">{{this.day.day_price}}元</div>
                         <div>金额收益</div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                 <div class="grid-content grid-con-3">
                     <i class="el-icon-goods grid-con-icon"></i>
                     <div class="grid-cont-right">
-                        <div class="grid-num">3件</div>
+                        <div class="grid-num">{{this.day.day_goods_count}}件</div>
                         <div>销售商品数量</div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="grid-content grid-con-4">
                     <i class="el-icon-refresh grid-con-icon"></i>
                     <div class="grid-cont-right">
-                        <div class="grid-num">↑100%</div>
+                        <div class="grid-num">{{this.day.day_price-this.yesterday.yeasterday_price>0?'上升':'下降'}}：{{this.day.day_price-this.yesterday.yeasterday_price}}元</div>
                         <div>较昨日收益情况比较</div>
                     </div>
                 </div>
@@ -50,31 +50,31 @@
         <el-col :span="8">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
-              <span>日收益情况:19.4元</span>
+              <span>日收益情况</span>
             </div>
             <div class="text item">
-              日有效订单：
+              日有效订单：{{this.day.day_order_count}}单
             </div>
             <div class="text item">
-              日有效收入金额：
+              日有效收入金额：{{this.day.day_price}}元
             </div>
             <div class="text item">
-              日有效销售产品数：
+              日有效销售产品数：{{this.day.day_goods_count}}件
             </div>
             <div class="text item">
-              日到店消费顾客数：
+              日到店消费顾客数：{{this.day.day_person}}人
             </div>
             <div class="text item">
-              日无效订单数：
+              日无效订单数：{{this.day.day_no_order_count}}单
             </div>
             <div class="text item">
-              较昨日订单有效数变化:  
+              较昨日订单有效数变化: {{this.day.day_order_count-this.yesterday.yeasterday_order_count>0?'上升':'下降'}}=>{{this.day.day_order_count-this.yesterday.yeasterday_order_count}}单
             </div>
             <div class="text item">
-              较昨日收入金额变化:  
+              较昨日收入金额变化:  {{this.day.day_price-this.yesterday.yeasterday_price>0?'上升':'下降'}}=>{{this.day.day_price-this.yesterday.yeasterday_price}}元
             </div>
             <div class="text item">
-              较昨日客流人数变化:  
+              较昨日客流人数变化:   {{this.day.day_person-this.yesterday.yeasterday_person>0?'上升':'下降'}}=>{{this.day.day_person-this.yesterday.yeasterday_person}}人
             </div>
           </el-card>
         </el-col>
@@ -84,28 +84,28 @@
               <span>周收益情况</span>
             </div>
             <div class="text item">
-              周有效总订单：
+              周有效总订单：{{this.week.week_order_count}}单
             </div>
             <div class="text item">
-              周有效收入总金额：
+              周有效收入总金额：{{this.week.week_price}}元
             </div>
             <div class="text item">
-              周有效销售产品总数：
+              周有效销售产品总数：{{this.week.week_goods_count}}件
             </div>
             <div class="text item">
-              周到店消费顾客总数：
+              周到店消费顾客总数：{{this.week.week_person}}人
             </div>
             <div class="text item">
-              周无效订单数：
+              周无效订单数：{{this.week.week_no_order_count}}单
             </div>
             <div class="text item">
-              较上周订单有效数变化:  
+              较上周订单有效数变化:  {{this.week.week_order_count-this.last_week.lastWeek_order_count>0?'上升':'下降'}}=>{{this.week.week_order_count-this.last_week.lastWeek_order_count}}单
             </div>
             <div class="text item">
-              较上周收入金额变化:  
+              较上周收入金额变化:  {{this.week.week_price-this.last_week.lastWeek_price>0?'上升':'下降'}}=>{{this.week.week_price-this.last_week.lastWeek_price}}元
             </div>
             <div class="text item">
-              较上周客流人数变化:  
+              较上周客流人数变化:  {{this.week.week_person-this.last_week.lastWeek_person>0?'上升':'下降'}}=>{{this.week.week_person-this.last_week.lastWeek_person}}人
             </div>
           </el-card>
         </el-col>
@@ -115,28 +115,28 @@
               <span>月收益情况</span>
             </div>
             <div class="text item">
-              月有效总订单：
+              月有效总订单：{{this.month.month_order_count}}单
             </div>
             <div class="text item">
-              月有效收入总金额：
+              月有效收入总金额：{{this.month.month_price}}元
             </div>
             <div class="text item">
-              月有效销售产品总数：
+              月有效销售产品总数：{{this.month.month_goods_count}}件
             </div>
             <div class="text item">
-              月到店消费顾客总数：
+              月到店消费顾客总数：{{this.month.month_person}}人
             </div>
             <div class="text item">
-              月无效订单数：
+              月无效订单数：{{this.month.month_no_order_count}}单
             </div>
             <div class="text item">
-              较上月订单有效数变化:  
+              较上月订单有效数变化:  {{this.month.month_order_count-this.last_month.last_month_order_count>0?'上升':'下降'}}=>{{this.month.month_order_count-this.last_month.last_month_order_count}}单
             </div>
             <div class="text item">
-              较上月收入金额变化:  
+              较上月收入金额变化:  {{this.month.month_price-this.last_month.last_month_price>0?'上升':'下降'}}=>{{this.month.month_price-this.last_month.last_month_price}}元
             </div>
             <div class="text item">
-              较上月客流人数变化:  
+              较上月客流人数变化:  {{this.month.month_person-this.last_month.last_month_person>0?'上升':'下降'}}=>{{this.month.month_person-this.last_month.last_month_person}}人
             </div>
           </el-card>
         </el-col>
@@ -157,6 +157,17 @@
 
 <script>
 export default {
+  data () {
+      return {
+        day:{},
+        yesterday:{},
+        week:{},
+        last_week:{},
+        month:{},
+        last_month:{},
+        shop:[]  
+      }
+  },
   methods: {
       dayChart01(){
             let dc01 = this.echarts.init(document.getElementById('dc01'));
@@ -343,6 +354,23 @@ export default {
       this.dayChart01();
       this.weekChart01();
       this.monthChart();
+      this.shop = JSON.parse(sessionStorage.getItem('shopInfo'));
+      this.axios.get('/api/shopInfo/getInfoToprofit/'+this.shop[0].id).then((res) => {
+          if(res.data.status=="success"){
+              this.day = res.data.day;
+              this.yesterday = res.data.yeaterday;
+              this.week = res.data.week;
+              this.last_week = res.data.last_week;
+              this.month = res.data.month;
+              this.last_month = res.data.last_month;
+          }
+      }).catch((error) => {
+          console.log(error);
+          this.$notify.error({
+                title: '错误',
+                message: '网络问题，请确认网络是否连接'
+            });
+      })
   }
 
 }

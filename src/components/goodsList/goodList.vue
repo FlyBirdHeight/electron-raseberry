@@ -23,6 +23,7 @@
         </el-aside>
         <el-main>
           <el-table
+            v-loading="loading"
             :data="tableData"
             style="width:auto">
             <el-table-column
@@ -100,7 +101,8 @@ export default {
         id:0,
       },
       dialogFormVisible: false,
-      shop:{}
+      shop:{},
+      loading:true
     }
   },
   methods: {
@@ -111,10 +113,11 @@ export default {
       this.axios.get('/api/shop/getList/'+this.shop[0].id).then((response) => {
         if(response.data.status == "success"){
           this.tableData = response.data.goodsList;
-          console.log(this.tableData.length);
+          // console.log(this.tableData.length);
           for(var i=0;i<this.tableData.length;i++){
             this.tableData[i].status = this.tableData[i].status==0?'未上架':'上架';
           }
+          this.loading = false;
         }else{  
           console.log(response.data.goodsList)
         }
