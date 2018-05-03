@@ -12,6 +12,7 @@
           listMaxHeight="600px"
           :listFolded="show"
           :list="music"
+          :float="true"
           style="width:95%"
         />
       </el-aside>

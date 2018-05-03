@@ -26,8 +26,11 @@ export default {
   },
   data () {
     return {
-      tabPosition:'left'
+      tabPosition:'left',
     }
+  },
+  methods: {
+    
   }
 }
 </script>
