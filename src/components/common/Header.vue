@@ -20,12 +20,14 @@
 
 <script>
 export default {
+    props:['ws'],
     data() {
         return {
         }
     },
     methods: {
         handleSelect(key) {
+            // {'type':'register','userInfo':JSON.parse(sessionStorage.getItem('user')),'shopInfo':JSON.parse(sessionStorage.getItem('shopInfo')),'token':sessionStorage.getItem('token')}
             switch(key){
                 case '1':
                     this.$router.push('/shopIndex/qrcode');

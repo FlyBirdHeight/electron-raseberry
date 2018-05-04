@@ -1,27 +1,36 @@
 <template>
     <div>
-        <Header></Header>
-        <router-view></router-view>
+        <Header :ws="websock"></Header>
+        <router-view :ws="websock"></router-view>
     </div>
 </template>
 
 <script>
 import Header from './common/Header'
+// this.ws.send({'type':'register','userInfo':JSON.parse(sessionStorage.getItem('user')),'shopInfo':JSON.parse(sessionStorage.getItem('shopInfo')),'token':sessionStorage.getItem('token')})
 export default {
     components: {
         Header
     },
+    data () {
+        return {
+            websock: null,
+            address:"ws://106.15.228.184:2347"
+        }
+    },
     methods:{
-      threadPoxi(){  // 实际调用的方法
+        threadPoxi(){  // 实际调用的方法
+            //参数
+            const agentData = "mymessage";
             //若是ws开启状态
-            if (this.ws.readyState === this.ws.OPEN) {
-                this.websocketsend(this.msg)
+            if (this.websock.readyState === this.websock.OPEN) {
+                this.websocketsend(agentData)
             }
             // 若是 正在开启状态，则等待300毫秒
-            else if (this.ws.readyState === this.ws.CONNECTING) {
+            else if (this.websock.readyState === this.websock.CONNECTING) {
                 let that = this;//保存当前对象this
                 setTimeout(function () {
-                    that.websocketsend(this.msg)
+                    that.websocketsend(agentData)
                 }, 300);
             }
             // 若未开启 ，则等待500毫秒
@@ -29,35 +38,40 @@ export default {
                 this.initWebSocket();
                 let that = this;//保存当前对象this
                 setTimeout(function () {
-                    that.websocketsend(this.msg)
+                    that.websocketsend(agentData)
                 }, 500);
             }
         },
-        initWebsocket(){
-            this.ws = new WebSocket("ws://106.15.228.184:2347");  
-            if(this.ws.OPEN){
-                console.log("success")
-            }
-            this.ws.onmessage = this.websocketonmessage;
+        initWebSocket(){ //初始化weosocket
+            //ws地址
+            this.websock = new WebSocket(this.address);
+            console.log(this.websock);
+            this.websock.onmessage = this.websocketonmessage;
+            this.websock.onclose = this.websocketclose;
         },
         websocketonmessage(e){ //数据接收
-            console.log(e.data);
-            document.getElementById("content").innerHTML += "<span>" + e.data + "</span><br>";
+            const redata = JSON.parse(e.data);
+            this.$notify({
+                title: redata.date,
+                message: redata.notice,
+                type: 'success',
+                duration: 0
+            });
+            var url = "http://p53z0yfgy.bkt.clouddn.com/%E8%AE%A2%E5%8D%95.m4a"
+            var n = new Audio(url);
+            n.src = url;
+            n.play();
         },
-        websocketsend(msg){//数据发送
-            this.ws.send(JSON.stringify({'type':'msg','msg':msg}));
+        websocketsend(agentData){//数据发送
+            this.websock.send(agentData);
         },
         websocketclose(e){  //关闭
             console.log("connection closed (" + e.code + ")");
         },
-        close(){
-            this.ws.onclose=function(e){
-                 console.log(e);
-                 ws.close();
-            };
-            console.log(123);
-        }
     },
+    created(){
+        this.initWebSocket()
+    }
 }
 </script>
 

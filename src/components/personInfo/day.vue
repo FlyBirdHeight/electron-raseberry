@@ -129,7 +129,7 @@ export default {
                             var res = [];
                             var len = 0;
                             while (len < 10) {
-                                res.push((Math.random()*10 + 20).toFixed(0) - 0);
+                                res.push((Math.random()*5 + 3).toFixed(0) - 0);
                                 len++;
                             }
                             return res;

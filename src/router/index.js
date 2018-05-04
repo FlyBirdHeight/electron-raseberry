@@ -13,7 +13,7 @@ export default new Router({
       component: resolve => require(['../components/login/login.vue'], resolve),
     },{
       path:"/shopIndex",
-      redirect: '/shopIndex/index',
+      redirect: '/shopIndex/qrcode',
       component: resolve => require(['../components/shopIndex.vue'], resolve), 
       children:[
         {

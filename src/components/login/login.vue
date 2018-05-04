@@ -46,6 +46,7 @@
                         sessionStorage.setItem('shopInfo',JSON.stringify(response.data.shopInfo));
                         var data = response.data.token;
                         this.axios.defaults.headers.common['Authorization'] = data.token_type + ' ' + data.access_token;
+                        sessionStorage.setItem('token',data.token_type + ' ' + data.access_token);
                         this.$router.push('/shopIndex');
                     }else{
                         console.log(response.data);

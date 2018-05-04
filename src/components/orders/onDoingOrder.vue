@@ -4,7 +4,7 @@
             :data="onDoingOrderData"
             border
             v-loading="loading"
-            style="width:66.5%;margin-left:17%;">
+            style="width:100%;margin-left:17%;">
             <el-table-column type="expand">
                 <template slot-scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
@@ -74,6 +74,13 @@
                 prop="get_type"
                 label="取货方式"
                 width="150">
+            </el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button
+                    size="mini"
+                    @click="handleEdit(scope.$index, scope.row)">确认完成</el-button>
+                </template>
             </el-table-column>
         </el-table>
   </div>

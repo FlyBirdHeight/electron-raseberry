@@ -18,6 +18,10 @@
 
 <script>
 export default {
+    props: ['ws'],
+    created(){
+        
+    },
     methods: {
         editQRcode(){
 
